@@ -7,14 +7,23 @@ import bson
 
 
 class LyketHome(tornado.web.RequestHandler):
+    def each(self,document,error):
+        if error:
+             raise error
+         elif document:
+             return document
+         else:
+             # Iteration complete
+             print 'done'
+
+
     def get(self):
         a=5
         database = self.settings['db']
         entry=database.lyket.articles.find_one()
-        print entry
-        entry=entry[0]
-        loader=template.Loader(os.getcwd())
-        self.render(loader.load("index.html").generate(entry))
+        res = entry.each(callback=each)
+        print res
+        self.render(loader.load("index.html").generate(res))
 
 
 class HomeHandler(tornado.web.RequestHandler):
