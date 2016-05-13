@@ -14,6 +14,7 @@ class LyketHome(tornado.web.RequestHandler):
         res= {}
         res['title']="dongs"
         res['sum']="sumarrydomgs"
+        loader=template.Loader(os.getcwd())
         self.render(loader.load("index.html").generate(res))
 
 
