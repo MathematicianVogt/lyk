@@ -10,9 +10,7 @@ class LyketHome(tornado.web.RequestHandler):
     def get(self):
         a=5
         database = self.settings['db']
-        entry=database.lyket.articles.find()
-        entry=yield entry.to_list(1)
-        entry=entry[0]
+        entry=yield database.lyket.articles.find_one()
         loader=template.Loader(os.cwd())
         self.render(loader.load("index.html").generate(entry))
 
