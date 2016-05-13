@@ -16,8 +16,7 @@ class LyketHome(tornado.web.RequestHandler):
         res['sum']="sumarrydomgs"
         loader=template.Loader(os.getcwd())
         source=loader.load("index.html").generate(title="dongs420")
-        page=template.Template(source)
-        self.render(page)
+        self.write(source)
 
 class HomeHandler(tornado.web.RequestHandler):
     def get(self):
