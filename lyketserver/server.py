@@ -8,6 +8,7 @@ import bson
 
 class LyketHome(tornado.web.RequestHandler):
     def get(self):
+        a=5
         database = self.settings['db']
         entry=database.lyket.find()
         entry=entry[0]
