@@ -7,22 +7,13 @@ import bson
 
 
 class LyketHome(tornado.web.RequestHandler):
-    def each(self,document,error):
-        if error:
-             raise error
-        elif document:
-             return document
-        else:
-             # Iteration complete
-             print 'done'
-
-
     def get(self):
-        a=5
         database = self.settings['db']
         entry=database.lyket.articles.find_one()
-        res = entry.each(callback=self.each)
-        print res
+        print type(entry)
+        res= {}
+        res['title']="dongs"
+        res['sum']="sumarrydomgs"
         self.render(loader.load("index.html").generate(res))
 
 
