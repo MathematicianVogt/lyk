@@ -90,7 +90,7 @@ def main():
     )
 
     '''
-        app = tornado.web.Application([
+    app = tornado.web.Application([
             tornado.web.url(r'/', LyketHome)
         ],
         db=database,
