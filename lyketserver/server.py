@@ -96,7 +96,7 @@ def main():
         db=database,
         debug=True
     )
-    app.listen(80)
+    app.listen(8000)
     tornado.ioloop.IOLoop.current().start()
 
 if __name__ == '__main__':
