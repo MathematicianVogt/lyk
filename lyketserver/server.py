@@ -11,7 +11,7 @@ class LyketHome(tornado.web.RequestHandler):
         database = self.settings['db']
         entry=database.lyket.find().sort({$natural:-1})
         loader=template.Loader(os.cwd())
-        loader.load("index.html").generate(entry)
+        self.render(loader.load("index.html").generate(entry))
 
 
 class HomeHandler(tornado.web.RequestHandler):
