@@ -11,6 +11,8 @@ class LyketHome(tornado.web.RequestHandler):
         a=5
         database = self.settings['db']
         entry=database.lyket.articles.find_one()
+        print entry
+        entry=entry[0]
         loader=template.Loader(os.getcwd())
         self.render(loader.load("index.html").generate(entry))
 
