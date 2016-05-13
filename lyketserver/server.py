@@ -1,6 +1,6 @@
 import tornado.ioloop
 import tornado.web
-import tornado.template
+import tornado.template as template
 import os
 import motor
 import bson
