@@ -1,0 +1,108 @@
+@media (max-width: 450px) {
+	.article {
+		width: 90%;
+	}
+	.a_img {
+		height: 100%;
+	}
+}
+
+@media (min-width: 451px) and (max-width: 800px){
+	.article {
+		width: 45%;
+	}
+	.a_img {
+		height: 100%;
+	}
+}
+
+@media (min-width: 801px) {
+	.article {
+		width: 30%;
+	}
+	.a_img {
+		height: 100%;
+	}
+}
+
+.article {
+	float: left;
+	position: relative;
+	overflow: hidden;
+	height: 250px;
+	margin: 5px 0;
+	z-index: 50;
+}
+
+.a_img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: auto;
+	overflow: hidden;
+}
+
+.a_headline_container {
+	z-index: 10;
+	position: absolute;
+	top: 0;
+    left: 0;
+	overflow: hidden;
+}
+
+.a_headline {
+	padding: 1px 2px;
+	font-size: 32px;
+    text-shadow: 1px 1px gray;
+	width: 100%;
+}
+
+.o_button {
+	width: 50%;
+	height: 50%;
+	float: left;
+    text-align: center;
+    background-color: rgba(0,0,0,.75);
+    font-size: 26px;
+	line-height: 30px;
+	cursor: pointer;
+	position: relative;
+}
+
+.o_button:active {
+	top: 1px;
+}
+
+.o_button:hover {
+	background-color: rgba(50,50,50,.75);
+}
+
+.o_button p {
+	vertical-align: middle;
+}
+
+.overlay {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+}
+
+.unselectable {
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+}
+
+a {
+	color: white;
+}
+
+a:visited {
+	text-decoration: none;
+	color: white;
+}

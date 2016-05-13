@@ -1,0 +1,12 @@
+<div class='article' ng-mouseover='article.overlay.mouseover()' >
+	<div class='a_img'><img ng-src="{{ article.img }}" src=''></div>
+	<div class='a_headline_container'>
+		<div class='a_headline'>{{ article.headline }}</div>
+	</div>
+	<div class='overlay' ng-show='article.overlay.display' ng-mouseout='article.overlay.mouseout()'>
+		<div class='o_button unselectable' ng-click='article.lyke()'><p>{{article.lykes}}</p><p>Lyke</p></div>
+		<div class='o_button unselectable' ng-click='article.dislyke()'><p>{{article.dislykes}}</p><p>Dislyke</p></div>
+		<div class='o_button unselectable'><p>Comment</p></div>
+		<div class='o_button unselectable'><a target='_blank' href='{{article.url}}'><p>Source</p></a></div>
+	</div>
+</div>

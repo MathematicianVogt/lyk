@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html ng-app="lyket">
+	<head>
+		<title>Lyket</title>
+	</head>
+	<link rel='stylesheet' href='/static/modules/lyket/lyket.css'>
+	<link rel='stylesheet' href='/static/modules/article/article.css'>
+	<link rel='stylesheet' href='/static/modules/overlay/overlay.css'>
+	<link href='https://fonts.googleapis.com/css?family=Raleway:400,600' rel='stylesheet' type='text/css'>
+	<body ng-controller='lyket_controller'>
+		
+		<lyk-article n="$index" ng-repeat="n in [0,1,2,3,4,5,6,7,8]"></lyk-article>
+		
+		<script src='/static/node_modules/angular/angular.js'></script>
+		<script src='/static/modules/lyket/lyket.js'></script>
+		<script src='/static/modules/article/article.js'></script>
+		<script src='/static/modules/overlay/overlay.js'></script>
+	</body>
+</html>
