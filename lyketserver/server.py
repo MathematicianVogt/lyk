@@ -9,7 +9,8 @@ import bson
 class LyketHome(tornado.web.RequestHandler):
     def get(self):
         database = self.settings['db']
-        entry=database.lyket.find().sort({$natural:-1})
+        entry=database.lyket.find()
+        entry=entry[0]
         loader=template.Loader(os.cwd())
         self.render(loader.load("index.html").generate(entry))
 
