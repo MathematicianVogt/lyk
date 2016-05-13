@@ -10,9 +10,9 @@ class LyketHome(tornado.web.RequestHandler):
     def each(self,document,error):
         if error:
              raise error
-         elif document:
+        elif document:
              return document
-         else:
+        else:
              # Iteration complete
              print 'done'
 
