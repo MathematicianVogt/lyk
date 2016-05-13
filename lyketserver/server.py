@@ -21,7 +21,7 @@ class LyketHome(tornado.web.RequestHandler):
         a=5
         database = self.settings['db']
         entry=database.lyket.articles.find_one()
-        res = entry.each(callback=each)
+        res = entry.each(callback=self.each)
         print res
         self.render(loader.load("index.html").generate(res))
 
