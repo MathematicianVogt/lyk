@@ -116,7 +116,7 @@ def main():
             tornado.web.url(r'/(?P<uuid>.+)', ArticlePage)
 
         ],cookie_secret='4cd86ac2-dba9-4a5c-992a-fc60e5847149', settings = {
-                    'static_path': os.getcwd()+  '/static'
+                    'static_url_prefix':'/static'
             }
 ,**{
     'pycket': {
