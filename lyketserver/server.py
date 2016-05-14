@@ -23,10 +23,10 @@ class LyketHome(tornado.web.RequestHandler):
         loader=template.Loader(os.getcwd())
 
         try:
-            if self.loggedin:
-                session=SessionManager(self)
-                source=loader.load("indexlogged.html").generate(stories=stories,session=session)
-                self.write(source)
+            session=SessionManager(self)
+            session=SessionManager(self)
+            source=loader.load("indexlogged.html").generate(stories=stories,session=session)
+            self.write(source)
 
         except:
             source=loader.load("index.html").generate(stories=stories)
