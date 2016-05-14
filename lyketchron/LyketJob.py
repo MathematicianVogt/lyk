@@ -39,8 +39,7 @@ class LyketJob:
 				submissions=self.reddit.get_subreddit(x).get_hot(limit=20)
 				for submission in submissions:
 					story_url=submission.url.encode('ascii', 'ignore')
-					a=NewsArticle(story_url)
-					if( not self.db.in_set({'url':story_url}) and not a.get_title()):
+					if( not self.db.in_set({'url':story_url})):
 						current_article = NewsArticle(story_url)
 						
 
@@ -73,7 +72,7 @@ class LyketJob:
 						#image for article : String (url to image)
 						article_thumbnaillink = current_article.thumbnail_url()
 
-						article_url = current_article.get_url()
+						
 						mydb = pymongo.MongoClient()
 						res=get_tld(article_url, as_object=True)
 						new_entry = {}
@@ -87,7 +86,7 @@ class LyketJob:
 						new_entry['likes']=0
 						new_entry['dislikes']=0
 						new_entry['comments'] = []
-						new_entry['url'] = article_url
+						new_entry['url'] = story_url
 						new_entry['_id'] = uuid.uuid4().hex
 						new_entry['postnum']=mydb.lyket.articles.count()
 						new_entry['creationtime']=datetime.datetime.now()
