@@ -30,7 +30,7 @@ class ArticlePage(tornado.web.RequestHandler):
             article=db.lyket.articles.find_one({'_id':uuid})
             loader=template.Loader(os.getcwd())
             session=SessionManager(self)
-            source=loader.load("article.html").generate(title=article['title'],sum=article['sum'],url=article['url']=session)
+            source=loader.load("article.html").generate(title=article['title'],sum=article['sum'],url=article['url'],session=session)
             self.write(source)
         except:
             loader=template.Loader(os.getcwd())
