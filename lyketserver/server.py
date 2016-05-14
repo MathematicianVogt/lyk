@@ -103,7 +103,7 @@ def main():
     )
 
     '''
-    v=**{
+    v={
     'pycket': {
         'engine': 'redis',
         'storage': {
