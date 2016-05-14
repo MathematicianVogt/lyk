@@ -110,7 +110,7 @@ def main():
     'pycket': {
         'engine': 'redis',
         'storage': {
-            'host': 'localhost',
+            'host': '104.196.43.152',
             'port': 6379,
             'db_sessions': 10,
             'db_notifications': 11,
