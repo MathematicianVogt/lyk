@@ -12,63 +12,32 @@ class LyketHome(tornado.web.RequestHandler):
     def get(self):
         db = pymongo.MongoClient()
         size=db.lyket.articles.count()
-        one=db.lyket.articles.find().limit(-1).skip(random.randint(0,size)).next()
+        stories=db.lyket.articles.find().limit(-10).skip(random.randint(0,size)).next()
         loader=template.Loader(os.getcwd())
-        source=loader.load("index.html").generate(title=one['title'],sum=one['sum'],url=one['url'])
+        source=loader.load("index.html").generate(stories=stories)
         self.write(source)
 
-class HomeHandler(tornado.web.RequestHandler):
-    def get(self):
-        self.render(
-            os.path.join(
-                os.getcwd(), 
-                'static', 
-                'modules', 
-                'lyket', 
-                'lyket.html'
-            )
-        )
-
-class ArticleHandler(tornado.web.RequestHandler):
-    @tornado.gen.coroutine
-    def get(self):
-
-        database = self.settings['db']
-
-        articles = database.lyket.articles.find().sort('creationtime', -1).limit(10)
-        articles = yield articles.to_list(10)
-
-        for article in articles:
-            article['_id'] = str(article['_id'])
-            article['creationtime'] = article['creationtime'].isoformat()
-            if article['pub']:
-                article['pub'] = article['pub'].isoformat()
-
-        self.write({'results': articles})
-
-class LykeHandler(tornado.web.RequestHandler):
-    def get(self, article_id=''):
-
+class ArticlePage(tornado.web.RequestHandler):
+    def get(self,uuid):
         db = pymongo.MongoClient()
+        size=db.lyket.articles.count()
+        article=db.lyket.articles.find({'_id':uuid})
+        loader=template.Loader(os.getcwd())
+        if article:
+            auth=""
+            for i in range(0,len(article['auth'])):
+                if i==len(article['auth'])-1
+                    auth=auth + article['auth'][i] + " - "
+                else:
+                    auth=auth + article['auth'][i]
+            source=loader.load("article.html").generate(title=article['title'],sum=article['sum'],url=article['url'],auth=auth)
+            self.write(source)
+        else:
+            source=loader.load("article_not_found.html")
+            self.write(source)
 
-        db.lyket.articles.update({
-            '_id': bson.objectid.ObjectId(article_id)},
-            {'$inc': {'likes': 1}
-        })
 
-        self.write('successful')
 
-class DislykeHandler(tornado.web.RequestHandler):
-    def get(self, article_id=''):
-
-        db = pymongo.MongoClient()
-
-        db.lyket.articles.update({
-            '_id': bson.objectid.ObjectId(article_id)},
-            {'$inc': {'dislikes': 1}
-        })
-
-        self.write('successful')
 
 def main():
 
@@ -92,7 +61,7 @@ def main():
 
     '''
     app = tornado.web.Application([
-            tornado.web.url(r'/', LyketHome)
+            tornado.web.url(r'/', LyketHome) ,tornado.web.url(r'/(?P<uuid>.+)', ArticlePage) 
         ],
         db=database,
         debug=True

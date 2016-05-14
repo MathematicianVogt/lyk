@@ -4,11 +4,9 @@
 <title> Lyket</title>
 
 <center>
-	<header><h1> <a href={{ url}}>{{ title }}</a> </h1> </header>
-
-	<p> {{sum}} </p>
-
-
+	{% for story in stories %}
+  	<li><a href=http://lyket.com/{{ story['_id']}}>{{ story['title'] }}</a></li>
+	{% end %}
 </center>
 
 </html>
