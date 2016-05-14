@@ -20,11 +20,11 @@ class LyketHome(tornado.web.RequestHandler):
 
 class ArticlePage(tornado.web.RequestHandler):
     def get(self,uuid):
-        db = pymongo.MongoClient()
-        size=db.lyket.articles.count()
-        article=db.lyket.articles.find_one({'_id':uuid})
-        loader=template.Loader(os.getcwd())
-        if article:
+        try:
+            db = pymongo.MongoClient()
+            size=db.lyket.articles.count()
+            article=db.lyket.articles.find_one({'_id':uuid})
+            loader=template.Loader(os.getcwd())
             author=""
             for i in range(0,len(article['author'])):
                 if (i==len(article['author'])-1):
@@ -33,7 +33,8 @@ class ArticlePage(tornado.web.RequestHandler):
                     author=author + article['author'][i]
             source=loader.load("article.html").generate(title=article['title'],sum=article['sum'],url=article['url'],author=author)
             self.write(source)
-        else:
+        except:
+            loader=template.Loader(os.getcwd())
             source=loader.load("article_not_found.html")
             self.write(source)
 
