@@ -35,7 +35,7 @@ class ArticlePage(tornado.web.RequestHandler):
             self.write(source)
         except:
             loader=template.Loader(os.getcwd())
-            source=loader.load("article_not_found.html")
+            source=loader.load("article_not_found.html").generate()
             self.write(source)
 
 
