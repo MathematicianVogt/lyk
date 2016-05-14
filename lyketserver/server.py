@@ -26,7 +26,7 @@ class LyketHome(tornado.web.RequestHandler):
         loader=template.Loader(os.getcwd())
         dic={'stories':stories}
         source=loader.load("index.html").generate(stories=stories)
-        self.render(os.getcwd() + "index.html",**dic)
+        self.render(os.getcwd() + "/index.html",**dic)
 
         
 
