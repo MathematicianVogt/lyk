@@ -88,7 +88,7 @@ class LyketJob:
 						new_entry['comments'] = []
 						new_entry['url'] = article_url
 						new_entry['_id'] = uuid.uuid4().hex
-
+						new_entry['postnum']=self.db.count()
 						new_entry['creationtime']=datetime.datetime.now()
 						new_entry['publisher'] = res.domain
 
