@@ -40,8 +40,8 @@ class AccountCreationHandler(tornado.web.RequestHandler):
     def post(self):
         db = pymongo.MongoClient()
         email = self.get_arguement('email', '')
-        username=self.get_arguement('username')
-        password=self.get_arguement('password')
+        username=self.get_arguement('username', '')
+        password=self.get_arguement('password', '')
 
         user_dic = {}
         user_dic['email']=email
@@ -63,10 +63,10 @@ class LoginHandler(tornado.web.RequestHandler):
         if user:
             session=SessionManager(self)
             session['user']=user
-            self.write("successfully logged in")
+            self.redirect("http://lyket.com/")
 
         else:
-            self.write("Username or Password not found")
+            self.redirect("http://lyket.com/")
 class SignUpHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("signup.html")
@@ -102,8 +102,21 @@ def main():
             tornado.web.url(r'/', LyketHome) ,tornado.web.url(r'/(?P<uuid>.+)', ArticlePage),tornado.web.url(r'/signup', SignUpHandler),tornado.web.url(r'/login', LoginHandler) ,tornado.web.url(r'/makeacc', AccountCreationHandler) 
         ],
         db=database,
-        debug=True
-    )
+        debug=True,,**{
+    'pycket': {
+        'engine': 'redis',
+        'storage': {
+            'host': 'localhost',
+            'port': 6379,
+            'db_sessions': 10,
+            'db_notifications': 11,
+            'max_connections': 2 ** 31,
+        },
+        'cookies': {
+            'expires_days': 120,
+        },
+    })
+    
     app.listen(8000)
     tornado.ioloop.IOLoop.current().start()
 
