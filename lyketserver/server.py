@@ -76,6 +76,7 @@ class LoginHandler(tornado.web.RequestHandler):
         if user:
             session=SessionManager(self)
             session['user']=user
+            print "fuck"
             self.loggedin=True
             self.redirect("http://lyket.com/")
 
