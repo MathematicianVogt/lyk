@@ -33,6 +33,7 @@ class LyketJob:
 
 	#thread function, will put enteries into DB in paraell. Will build json, then put into DB
 	def put_article_in_db(self):
+		counter=0
 		try:
 			for x in self.sublist:
 				submissions=self.reddit.get_subreddit(x).get_hot(limit=100)
@@ -97,6 +98,9 @@ class LyketJob:
 
 						self.db.CollectionSubmitOne(new_entry)
 						print "Done with article " + str(mydb.lyket.articles.count())
+					else:
+						print "Already have it " + str(counter)
+						counter=counter+1
 
 		except Exception as e:
 			print "------"
