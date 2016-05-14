@@ -52,8 +52,13 @@ class AccountCreationHandler(tornado.web.RequestHandler):
         user_dic['bio']=""
         user_dic['comments']=[]
         db.lyket.users.insert(user_dic)
+        self.redirect("http://lyket.com/")
 
-
+class LogoutHandler(tornado.web.RequestHandler):
+    def post(self):
+        session=SessionManager(self):
+        session.delete(self):
+        self.redirect("http://lyket.com/")
 class LoginHandler(tornado.web.RequestHandler):
     def post(self):
         db = pymongo.MongoClient()
@@ -98,9 +103,23 @@ def main():
     )
 
     '''
+    v=**{
+    'pycket': {
+        'engine': 'redis',
+        'storage': {
+            'host': 'localhost',
+            'port': 6379,
+            'db_sessions': 10,
+            'db_notifications': 11,
+            'max_connections': 2 ** 31,
+        },
+        'cookies': {
+            'expires_days': 120,
+        },
+    }
     app = tornado.web.Application([
-            tornado.web.url(r'/', LyketHome) ,tornado.web.url(r'/(?P<uuid>.+)', ArticlePage),tornado.web.url(r'/signup', SignUpHandler),tornado.web.url(r'/login', LoginHandler) ,tornado.web.url(r'/makeacc', AccountCreationHandler) 
-        ])
+            tornado.web.url(r'/', LyketHome) ,tornado.web.url(r'/(?P<uuid>.+)', ArticlePage),tornado.web.url(r'/signup', SignUpHandler),tornado.web.url(r'/login', LoginHandler) ,tornado.web.url(r'/makeacc', AccountCreationHandler),tornado.web.url(r'/logout', LogoutHandler) 
+        ],v)
     
 
 
