@@ -26,13 +26,7 @@ class ArticlePage(tornado.web.RequestHandler):
             size=db.lyket.articles.count()
             article=db.lyket.articles.find_one({'_id':uuid})
             loader=template.Loader(os.getcwd())
-            author=""
-            for i in range(0,len(article['author'])):
-                if (i==len(article['author'])-1):
-                    author=author + article['author'][i] 
-                else:
-                    author=author + article['author'][i] + " - "
-            source=loader.load("article.html").generate(title=article['title'],sum=article['sum'],url=article['url'],author=author)
+            source=loader.load("article.html").generate(title=article['title'],sum=article['sum'],url=article['url'])
             self.write(source)
         except:
             loader=template.Loader(os.getcwd())
