@@ -78,7 +78,7 @@ class LyketJob:
 						new_entry = {}
 						new_entry['title']=article_title
 						new_entry['sum']=article_summary
-						new_entry['auth']=article_authors
+						new_entry['author']=article_authors
 						new_entry['thumb'] = article_thumbnaillink
 						new_entry['pub'] = article_published
 						new_entry['keywords'] = article_key_words
