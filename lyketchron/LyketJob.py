@@ -10,6 +10,7 @@ import cProfile
 import signal
 from tld import get_tld
 import uuid
+import praw
 
 class TimeoutException(Exception):   # Custom exception class
     pass
