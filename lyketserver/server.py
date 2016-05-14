@@ -22,7 +22,7 @@ class ArticlePage(tornado.web.RequestHandler):
     def get(self,uuid):
         db = pymongo.MongoClient()
         size=db.lyket.articles.count()
-        article=db.lyket.articles.find({'_id':uuid})
+        article=db.lyket.articles.find_one({'_id':uuid})
         loader=template.Loader(os.getcwd())
         if article:
             author=""
