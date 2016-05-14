@@ -38,8 +38,8 @@ class LyketJob:
 				submissions=self.reddit.get_subreddit(x).get_hot(limit=100)
 				for submission in submissions:
 					story_url=submission.url.encode('ascii', 'ignore')
-
-					if( not self.db.in_set({'url':story_url})):
+					a=NewsArticle(story_url)
+					if( not self.db.in_set({'url':story_url}) and not a.get_title()):
 						current_article = NewsArticle(story_url)
 						
 
