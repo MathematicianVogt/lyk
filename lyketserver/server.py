@@ -25,13 +25,13 @@ class ArticlePage(tornado.web.RequestHandler):
         article=db.lyket.articles.find({'_id':uuid})
         loader=template.Loader(os.getcwd())
         if article:
-            auth=""
-            for i in range(0,len(article['auth'])):
-                if (i==len(article['auth'])-1):
-                    auth=auth + article['auth'][i] + " - "
+            author=""
+            for i in range(0,len(article['author'])):
+                if (i==len(article['author'])-1):
+                    author=author + article['auth'][i] + " - "
                 else:
-                    auth=auth + article['auth'][i]
-            source=loader.load("article.html").generate(title=article['title'],sum=article['sum'],url=article['url'],auth=auth)
+                    author=author + article['author'][i]
+            source=loader.load("article.html").generate(title=article['title'],sum=article['sum'],url=article['url'],author=author)
             self.write(source)
         else:
             source=loader.load("article_not_found.html")
