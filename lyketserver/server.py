@@ -22,6 +22,7 @@ class LyketHome(tornado.web.RequestHandler):
 
         try:
             if self.loggedin:
+                session=SessionManager(self)
                 source=loader.load("indexlogged.html").generate(stories=stories,session=session)
                 self.write(source)
 
