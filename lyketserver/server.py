@@ -28,7 +28,7 @@ class ArticlePage(tornado.web.RequestHandler):
             author=""
             for i in range(0,len(article['author'])):
                 if (i==len(article['author'])-1):
-                    author=author + article['auth'][i] + " - "
+                    author=author + article['author'][i] + " - "
                 else:
                     author=author + article['author'][i]
             source=loader.load("article.html").generate(title=article['title'],sum=article['sum'],url=article['url'],author=author)
