@@ -70,8 +70,8 @@ class LogoutHandler(tornado.web.RequestHandler):
 class LoginHandler(tornado.web.RequestHandler):
     def post(self):
         db = pymongo.MongoClient()
-        username=self.get_arguement('username')
-        password=self.get_arguement('password')
+        username=self.get_argument('username')
+        password=self.get_argument('password')
         user=db.lyket.users.find_one({'username':username , 'password':password})
         if user:
             session=SessionManager(self)
