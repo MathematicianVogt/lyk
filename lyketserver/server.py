@@ -21,6 +21,7 @@ class LyketHome(tornado.web.RequestHandler):
         loader=template.Loader(os.getcwd())
 
         try:
+            print "lolos"
             print str(self.loggedin)
             if self.loggedin:
                 session=SessionManager(self)
