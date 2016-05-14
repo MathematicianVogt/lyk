@@ -1,0 +1,14 @@
+{%if not session%}
+<form id="login_form" action="http://www.lyket.com/login" method="post">
+    <label class="grey" for="user">Username</label><br />
+    <input type="username" name="username" style="width:99%" id="username"><br />
+    <label class="grey" for="pwd">Password</label><br />
+    <input type="password" name="password" style="width:99%" id="password"><br />
+    <label>
+    <input type="submit" id="makebtn" name="account" value="accountmkr" class="button"><br />
+    </form>
+    <a href=http://lyket.com/signup>Sign Up</a>
+{%else%}
+	<h1> Hi {{session['username']}}<a href=http://lyket.com/logout>Logout</a> </h1>
+
+{%end%}
