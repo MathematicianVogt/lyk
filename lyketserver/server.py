@@ -73,6 +73,7 @@ class LoginHandler(tornado.web.RequestHandler):
         username=self.get_argument('username')
         password=self.get_argument('password')
         user=db.lyket.users.find_one({'username':username , 'password':password})
+        print "got here"
         if user:
             session=SessionManager(self)
             session['user']=user
