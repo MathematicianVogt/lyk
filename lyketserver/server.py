@@ -8,11 +8,14 @@ import pymongo
 import random
 import uuid
 import datetime
-from pycket.session import SessionMixin
+from pycket.session import SessionManager
 
 
-class LyketHome(tornado.web.RequestHandler, SessionMixin):
-
+class LyketHome(tornado.web.RequestHandler):
+    def initialize(self):
+        self.session = SessionManager(self)
+        self.session["user"]=None 
+    
     def get(self):
         
         db = pymongo.MongoClient()
@@ -21,15 +24,9 @@ class LyketHome(tornado.web.RequestHandler, SessionMixin):
         real_amount=size-post_amount
         stories=db.lyket.articles.find({"postnum" : {"$gt" : real_amount}}).sort([("postnum",-1)])
         loader=template.Loader(os.getcwd())
-        try:
-            session=self.session.get('user')
-            source=loader.load("indexlogged.html").generate(stories=stories,session=session)
-            self.write(source)
-
-        except Exception as e:
-            print e
-            source=loader.load("index.html").generate(stories=stories)
-            self.write(source)
+       
+        source=loader.load("index.html").generate(stories=stories)
+        self.write(source)
 
         
 
@@ -70,7 +67,7 @@ class LogoutHandler(tornado.web.RequestHandler):
         session=SessionManager(self)
         session.delete(self)
         self.redirect("http://lyket.com/")
-class LoginHandler(tornado.web.RequestHandler, SessionMixin):
+class LoginHandler(tornado.web.RequestHandler):
     def post(self):
         db = pymongo.MongoClient()
         username=self.get_argument('username')
