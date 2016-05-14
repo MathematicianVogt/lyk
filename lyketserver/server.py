@@ -102,7 +102,7 @@ def main():
             tornado.web.url(r'/', LyketHome) ,tornado.web.url(r'/(?P<uuid>.+)', ArticlePage),tornado.web.url(r'/signup', SignUpHandler),tornado.web.url(r'/login', LoginHandler) ,tornado.web.url(r'/makeacc', AccountCreationHandler) 
         ],
         db=database,
-        debug=True,,**{
+        debug=True,**{
     'pycket': {
         'engine': 'redis',
         'storage': {
