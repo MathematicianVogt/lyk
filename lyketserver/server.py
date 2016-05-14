@@ -24,11 +24,11 @@ class LyketHome(tornado.web.RequestHandler):
 
         try:
             session=SessionManager(self)
-            session=SessionManager(self)
             source=loader.load("indexlogged.html").generate(stories=stories,session=session)
             self.write(source)
 
-        except:
+        except Exception as e:
+            print e
             source=loader.load("index.html").generate(stories=stories)
             self.write(source)
 
