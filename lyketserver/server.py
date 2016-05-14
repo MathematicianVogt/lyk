@@ -26,7 +26,7 @@ class ArticlePage(tornado.web.RequestHandler):
         if article:
             auth=""
             for i in range(0,len(article['auth'])):
-                if i==len(article['auth'])-1
+                if (i==len(article['auth'])-1):
                     auth=auth + article['auth'][i] + " - "
                 else:
                     auth=auth + article['auth'][i]
