@@ -19,7 +19,8 @@ class LyketHome(tornado.web.RequestHandler):
         real_amount=size-post_amount
         stories=db.lyket.articles.find({"postnum" : {"$gt" : real_amount}})
         loader=template.Loader(os.getcwd())
-        source=loader.load("index.html").generate(stories=stories)
+        session=SessionManager(self)
+        source=loader.load("index.html").generate(stories=stories,session=session)
         self.write(source)
 
 class ArticlePage(tornado.web.RequestHandler):
@@ -29,8 +30,7 @@ class ArticlePage(tornado.web.RequestHandler):
             size=db.lyket.articles.count()
             article=db.lyket.articles.find_one({'_id':uuid})
             loader=template.Loader(os.getcwd())
-            session=SessionManager(self)
-            source=loader.load("article.html").generate(title=article['title'],sum=article['sum'],url=article['url'],session=session)
+            source=loader.load("article.html").generate(title=article['title'],sum=article['sum'],url=article['url'])
             self.write(source)
         except:
             loader=template.Loader(os.getcwd())
