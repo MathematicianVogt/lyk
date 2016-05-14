@@ -31,7 +31,7 @@ class LyketJob:
 		self.sublist=["news","worldnews","politics"]
 
 	#thread function, will put enteries into DB in paraell. Will build json, then put into DB
-	def put_article_in_db(self,story_url):
+	def put_article_in_db(self):
 		try:
 			for x in self.sublist:
 				submissions=self.reddit.get_subreddit(x).get_hot(limit=100)
@@ -103,25 +103,8 @@ class LyketJob:
 					print "------"
 
 	def runJob(self):
-		try:
-			for stream in self.file:
-
-				currentstream = feedparser.parse(stream)
-				for entry in currentstream['entries']:
-					story_url = entry['link']
-					signal.alarm(10)  
-					try:
-						self.put_article_in_db(story_url)
-					except TimeoutException:
-						continue
-					else:
-						signal.alarm(0)
-					
-		except Exception as e:
-			print "The following issue occured: "
-			print e
-			print " "
-
+		self.put_article_in_db(story_url)
+		
 					
 			
 
