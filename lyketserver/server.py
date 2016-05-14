@@ -38,9 +38,9 @@ class ArticlePage(tornado.web.RequestHandler):
 class AccountCreationHandler(tornado.web.RequestHandler):
     def post(self):
         db = pymongo.MongoClient()
-        email = self.get_arguement('email', '')
-        username=self.get_arguement('username', '')
-        password=self.get_arguement('password', '')
+        email = self.get_argument('email', '')
+        username=self.get_argument('username', '')
+        password=self.get_argument('password', '')
 
         user_dic = {}
         user_dic['email']=email
