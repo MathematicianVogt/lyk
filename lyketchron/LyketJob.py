@@ -97,11 +97,11 @@ class LyketJob:
 
 						self.db.CollectionSubmitOne(new_entry)
 
-				except Exception as e:
-					print "------"
-					print "its fucked emma"
-					print e
-					print "------"
+		except Exception as e:
+			print "------"
+			print "its fucked emma"
+			print e
+			print "------"
 
 	def runJob(self):
 		self.put_article_in_db(story_url)
