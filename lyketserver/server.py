@@ -21,11 +21,11 @@ class LyketHome(tornado.web.RequestHandler):
         real_amount=size-post_amount
         stories=db.lyket.articles.find({"postnum" : {"$gt" : real_amount}}).sort([("postnum",-1)])
         loader=template.Loader(os.getcwd())
-
+        session=SessionManager(self)
         try:
-            session=SessionManager(self)
-            source=loader.load("indexlogged.html").generate(stories=stories,session=session)
-            self.write(source)
+            if session['loggedin']:
+                source=loader.load("indexlogged.html").generate(stories=stories,session=session)
+                self.write(source)
 
         except Exception as e:
             print e
@@ -88,6 +88,7 @@ class LoginHandler(tornado.web.RequestHandler):
         if user:
             
             session['user']=user
+            session['loggedin']=True
             print "fuck"
             self.redirect("http://lyket.com/")
 
