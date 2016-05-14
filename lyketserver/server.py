@@ -19,7 +19,7 @@ class LyketHome(tornado.web.RequestHandler):
         size=db.lyket.articles.count()
         post_amount=30
         real_amount=size-post_amount
-        stories=db.lyket.articles.find({"postnum" : {"$gt" : real_amount}})
+        stories=db.lyket.articles.find({"postnum" : {"$gt" : real_amount}}).sort({"postnum"}: -1)
         loader=template.Loader(os.getcwd())
 
         try:
@@ -40,6 +40,7 @@ class ArticlePage(tornado.web.RequestHandler):
             db = pymongo.MongoClient()
             size=db.lyket.articles.count()
             article=db.lyket.articles.find_one({'_id':uuid})
+
             loader=template.Loader(os.getcwd())
             source=loader.load("article.html").generate(title=article['title'],sum=article['sum'],url=article['url'])
             self.write(source)
