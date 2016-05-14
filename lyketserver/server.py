@@ -108,7 +108,12 @@ def main():
     '''
     
     app = tornado.web.Application([
-            tornado.web.url(r'/', LyketHome) ,tornado.web.url(r'/signup', SignUpHandler),tornado.web.url(r'/login', LoginHandler) ,tornado.web.url(r'/makeacc', AccountCreationHandler),tornado.web.url(r'/logout', LogoutHandler),tornado.web.url(r'/(?P<uuid>.+)', ArticlePage) 
+            tornado.web.url(r'/', LyketHome) ,
+            tornado.web.url(r'/signup', SignUpHandler),
+            tornado.web.url(r'/login', LoginHandler) ,
+            tornado.web.url(r'/makeacc', AccountCreationHandler),
+            tornado.web.url(r'/logout', LogoutHandler),tornado.web.url(r'/(?P<uuid>.+)', ArticlePage),
+            tornado.web.url(r'/static/(.*)', tornado.web.StaticFileHandler, {'path': os.path.join(os.getcwd(), 'static')}) 
         ],cookie_secret='4cd86ac2-dba9-4a5c-992a-fc60e5847149',**{
     'pycket': {
         'engine': 'redis',
