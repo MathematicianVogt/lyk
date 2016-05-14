@@ -13,6 +13,7 @@ from pycket.session import SessionManager
 
 class LyketHome(tornado.web.RequestHandler):
     def get(self):
+        self.loggedin=None
         db = pymongo.MongoClient()
         size=db.lyket.articles.count()
         post_amount=30
@@ -21,8 +22,6 @@ class LyketHome(tornado.web.RequestHandler):
         loader=template.Loader(os.getcwd())
 
         try:
-            print "lolos"
-            print str(self.loggedin)
             if self.loggedin:
                 session=SessionManager(self)
                 source=loader.load("indexlogged.html").generate(stories=stories,session=session)
