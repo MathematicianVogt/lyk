@@ -112,7 +112,7 @@ def main():
             tornado.web.url(r'/signup', SignUpHandler),
             tornado.web.url(r'/login', LoginHandler) ,
             tornado.web.url(r'/makeacc', AccountCreationHandler),
-            tornado.web.url(r'/static/(.*)', tornado.web.StaticFileHandler, {'path': os.path.join(os.getcwd(), 'static')}) 
+            tornado.web.url(r'/static/(.*)', tornado.web.StaticFileHandler, {'path': os.path.join(os.getcwd(), 'static')}),
             tornado.web.url(r'/logout', LogoutHandler),
             tornado.web.url(r'/(?P<uuid>.+)', ArticlePage)
 
