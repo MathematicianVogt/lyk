@@ -21,7 +21,7 @@ class LyketHome(tornado.web.RequestHandler):
         real_amount=size-post_amount
         stories=db.lyket.articles.find({"postnum" : {"$gt" : real_amount}}).sort([("postnum",-1)])
         loader=template.Loader(os.getcwd())
-        session=SessionManager()
+        session=SessionManager(self)
         print str(session.keys())
         try:
             if session['loggedin']:
