@@ -6,6 +6,9 @@ import motor
 import bson
 import pymongo
 import random
+import uuid
+import datetime
+from pycket.session import SessionManager
 
 
 class LyketHome(tornado.web.RequestHandler):
@@ -32,6 +35,43 @@ class ArticlePage(tornado.web.RequestHandler):
             loader=template.Loader(os.getcwd())
             source=loader.load("article_not_found.html").generate()
             self.write(source)
+class AccountCreationHandler(tornado.web.RequestHandler):
+    def post(self):
+        db = pymongo.MongoClient()
+        email = self.get_arguement('email', '')
+        username=self.get_arguement('username')
+        password=self.get_arguement('password')
+
+        user_dic = {}
+        user_dic['email']=email
+        user_dic['username']=username
+        user_dic['password']=password
+        user_dic['_id'] = uuid.uuid4().hex
+        user_dic['birth']=datetime.datetime.now()
+        user_dic['bio']=""
+        user_dic['comments']=[]
+        db.lyket.users.insert(user_dic)
+
+
+class LoginHandler(tornado.web.RequestHandler):
+    def post(self):
+        db = pymongo.MongoClient()
+        username=self.get_arguement('username')
+        password=self.get_arguement('password')
+        user=db.lyket.users.find_one{{'username':username , 'password':password}}
+        if user:
+            session=SessionManager(self)
+            session['user']=user
+            self.write("successfully logged in")
+
+        else:
+            self.write("Username or Password not found")
+class SignUpHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render("signup.html")
+
+
+
 
 
 
@@ -58,7 +98,7 @@ def main():
 
     '''
     app = tornado.web.Application([
-            tornado.web.url(r'/', LyketHome) ,tornado.web.url(r'/(?P<uuid>.+)', ArticlePage) 
+            tornado.web.url(r'/', LyketHome) ,tornado.web.url(r'/(?P<uuid>.+)', ArticlePage),tornado.web.url(r'/signup', SignUpHandler),tornado.web.url(r'/login', LoginHandler) ,tornado.web.url(r'/makeacc', AccountCreationHandler) 
         ],
         db=database,
         debug=True
