@@ -74,7 +74,7 @@ class LyketJob:
 
 						
 						mydb = pymongo.MongoClient()
-						res=get_tld(article_url, as_object=True)
+						res=get_tld(story_url, as_object=True)
 						new_entry = {}
 						new_entry['title']=article_title
 						new_entry['sum']=article_summary
