@@ -10,12 +10,12 @@ class LyketHome(tornado.web.RequestHandler):
     def get(self):
         database = self.settings['db']
         entry=database.lyket.articles.find_one()
-        print type(entry)
+        print entry.result()
         res= {}
         res['title']="dongs"
         res['sum']="sumarrydomgs"
         loader=template.Loader(os.getcwd())
-        source=loader.load("index.html").generate(res)
+        source=loader.load("index.html").generate(title="dongs",sum="pi")
         self.write(source)
 
 class HomeHandler(tornado.web.RequestHandler):
