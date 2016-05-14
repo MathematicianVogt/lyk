@@ -58,7 +58,7 @@ class LoginHandler(tornado.web.RequestHandler):
         db = pymongo.MongoClient()
         username=self.get_arguement('username')
         password=self.get_arguement('password')
-        user=db.lyket.users.find_one{{'username':username , 'password':password}}
+        user=db.lyket.users.find_one({'username':username , 'password':password})
         if user:
             session=SessionManager(self)
             session['user']=user
