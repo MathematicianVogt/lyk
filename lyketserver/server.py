@@ -76,12 +76,18 @@ class LoginHandler(tornado.web.RequestHandler):
         username=self.get_argument('username')
         password=self.get_argument('password')
         user=db.lyket.users.find_one({'username':username , 'password':password})
+        session=SessionManager(self)
+
+        try:
+            print str(session['user']['username'])
+        except:
+            pass
+
         print "got here"
         if user:
-            session=SessionManager(self)
+            
             session['user']=user
             print "fuck"
-            self.loggedin=True
             self.redirect("http://lyket.com/")
 
         else:
