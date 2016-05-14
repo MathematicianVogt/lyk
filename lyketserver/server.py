@@ -12,7 +12,7 @@ class LyketHome(tornado.web.RequestHandler):
     def get(self):
         db = pymongo.MongoClient()
         size=db.lyket.articles.count()
-        one=db.lyket.articles.find().limit(-1).skip(random.random(0,size)).next()
+        one=db.lyket.articles.find().limit(-1).skip(random.randint(0,size)).next()
         loader=template.Loader(os.getcwd())
         source=loader.load("index.html").generate(title=one['title'],sum=one['sum'],url=one['url'])
         self.write(source)
