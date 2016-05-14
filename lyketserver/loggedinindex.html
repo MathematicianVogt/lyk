@@ -9,6 +9,6 @@
     </form>
     <a href=http://lyket.com/signup>Sign Up</a>
 {%else%}
-	<h1> Hi {{session['username']}}<a href=http://lyket.com/logout>Logout</a> </h1>
+	<h1> Hi {{session['user']['username']}}<a href=http://lyket.com/logout>Logout</a> </h1>
 
 {%end%}

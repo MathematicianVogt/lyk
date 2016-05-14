@@ -1,0 +1,15 @@
+
+<html>
+
+<title> Lyket</title>
+<h1> Hi {{session['user']['username']}}<a href=http://lyket.com/logout>Logout</a> </h1>
+
+<center>
+	<h1>Newest Stories </h1>
+	{% for story in stories %}
+  	<li><a href=http://lyket.com/{{ story["_id"]}}>{{ story["title"] }}</a> {{story["postnum"]}}</li>
+	{% end %}
+<h1>Jordan- Have wife make fashion list for me pronto.</h1>
+</center>
+	
+</html>
