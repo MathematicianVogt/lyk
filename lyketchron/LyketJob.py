@@ -23,7 +23,7 @@ signal.signal(signal.SIGALRM, timeout_handler)
 
 class LyketJob:
 	def __init__(self):
-		self.file=open('LikeItRSSFeeds.txt')
+		self.file=open('lyketstreams.txt')
 		self.db=MongoLib("lyket", "articles")
 
 	#thread function, will put enteries into DB in paraell. Will build json, then put into DB
