@@ -13,7 +13,6 @@ class LyketHome(tornado.web.RequestHandler):
         db = pymongo.MongoClient()
         size=db.lyket.articles.count()
         stories=db.lyket.articles.find().limit(-10)
-        print type(stories)
         loader=template.Loader(os.getcwd())
         source=loader.load("index.html").generate(stories=stories)
         self.write(source)
