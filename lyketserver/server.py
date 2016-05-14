@@ -8,7 +8,7 @@ import pymongo
 import random
 import uuid
 import datetime
-from pycket.session import SessionManager
+from pycket.session import SessionMixin
 
 
 class LyketHome(tornado.web.RequestHandler, SessionMixin):
