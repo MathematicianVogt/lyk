@@ -57,7 +57,7 @@ class AccountCreationHandler(tornado.web.RequestHandler):
 class LogoutHandler(tornado.web.RequestHandler):
     def post(self):
         session=SessionManager(self)
-        session.delete(self):
+        session.delete(self)
         self.redirect("http://lyket.com/")
 class LoginHandler(tornado.web.RequestHandler):
     def post(self):
