@@ -24,9 +24,9 @@ class LyketHome(tornado.web.RequestHandler):
         real_amount=size-post_amount
         stories=db.lyket.articles.find({"postnum" : {"$gt" : real_amount}}).sort([("postnum",-1)])
         loader=template.Loader(os.getcwd())
-       
+        dic={'stories':stories}
         source=loader.load("index.html").generate(stories=stories)
-        self.write(source)
+        self.render(os.getcwd() + "index.html",**dic)
 
         
 
