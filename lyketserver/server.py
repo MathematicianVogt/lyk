@@ -9,8 +9,9 @@ import bson
 class LyketHome(tornado.web.RequestHandler):
     def get(self):
         database = self.settings['db']
-        entry=database.lyket.articles.find_one()
-        res= {}
+        db = pymongo.MongoClient()
+        one=db.lyket.articles.find_one()
+        print one 
         res['title']="dongs"
         res['sum']="sumarrydomgs"
         loader=template.Loader(os.getcwd())
