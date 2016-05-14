@@ -96,6 +96,7 @@ class LyketJob:
 						new_entry['companycreator'] = res.domain
 
 						self.db.CollectionSubmitOne(new_entry)
+						print "Done with article " + str(mydb.lyket.articles.count())
 
 		except Exception as e:
 			print "------"
