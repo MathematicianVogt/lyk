@@ -4,6 +4,7 @@
 <title> Lyket</title>
 
 <center>
+	<h1>Newest Stories </h1>
 	{% for story in stories %}
   	<li><a href=http://lyket.com/{{ story['_id']}}>{{ story['title'] }}</a></li>
 	{% end %}
