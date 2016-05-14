@@ -104,7 +104,7 @@ class LyketJob:
 			print "------"
 
 	def runJob(self):
-		self.put_article_in_db(story_url)
+		self.put_article_in_db()
 		
 					
 			
