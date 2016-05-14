@@ -11,7 +11,7 @@ class LyketHome(tornado.web.RequestHandler):
     def get(self):
         database = self.settings['db']
         db = pymongo.MongoClient()
-        one=db.lyket.articles.find_one()
+        one=db.lyket.articles.find().limit(1).skip( _rand() * db.lyket.articles.count() )
         loader=template.Loader(os.getcwd())
         source=loader.load("index.html").generate(title=one['title'],sum=one['sum'],url=one['url'])
         self.write(source)
