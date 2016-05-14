@@ -119,7 +119,7 @@ def main():
         'cookies': {
             'expires_days': 120,
         },
-    }})
+    }},cookie_secret='4cd86ac2-dba9-4a5c-992a-fc60e5847149')
     
 
 
