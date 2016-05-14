@@ -10,7 +10,7 @@ class LyketHome(tornado.web.RequestHandler):
     def get(self):
         database = self.settings['db']
         entry=database.lyket.articles.find_one()
-        while !entry.done():
+        while not entry.done():
             pass
         print entry.result()
         res= {}
