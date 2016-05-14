@@ -12,8 +12,7 @@ from pycket.session import SessionManager
 
 
 class LyketHome(tornado.web.RequestHandler):
-    def initialize(self):
-        self.loggedin=False
+
     def get(self):
         
         db = pymongo.MongoClient()
