@@ -73,7 +73,7 @@ class LyketJob:
 						article_thumbnaillink = current_article.thumbnail_url()
 
 						article_url = current_article.get_url()
-
+						mydb = pymongo.MongoClient()
 						res=get_tld(article_url, as_object=True)
 						new_entry = {}
 						new_entry['title']=article_title
@@ -88,7 +88,7 @@ class LyketJob:
 						new_entry['comments'] = []
 						new_entry['url'] = article_url
 						new_entry['_id'] = uuid.uuid4().hex
-						new_entry['postnum']=self.db.count()
+						new_entry['postnum']=mydb.lyket.articles.count()
 						new_entry['creationtime']=datetime.datetime.now()
 						new_entry['publisher'] = res.domain
 
