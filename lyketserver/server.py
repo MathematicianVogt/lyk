@@ -20,7 +20,7 @@ class LyketHome(tornado.web.RequestHandler):
         stories=db.lyket.articles.find({"postnum" : {"$gt" : real_amount}})
         loader=template.Loader(os.getcwd())
         if self.loggedin:
-            session=SessionManager(self):
+            session=SessionManager(self)
         else:
             session=None
 
