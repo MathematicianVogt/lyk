@@ -12,8 +12,10 @@ from pycket.session import SessionManager
 
 
 class LyketHome(tornado.web.RequestHandler):
+    def initialize(self):
+        self.loggedin=False
     def get(self):
-        self.loggedin=None
+        
         db = pymongo.MongoClient()
         size=db.lyket.articles.count()
         post_amount=30
