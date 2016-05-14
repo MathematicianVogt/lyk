@@ -11,7 +11,7 @@ import datetime
 from pycket.session import SessionManager
 
 
-class LyketHome(tornado.web.RequestHandler):
+class LyketHome(tornado.web.RequestHandler, SessionMixin):
 
     def get(self):
         
@@ -21,12 +21,10 @@ class LyketHome(tornado.web.RequestHandler):
         real_amount=size-post_amount
         stories=db.lyket.articles.find({"postnum" : {"$gt" : real_amount}}).sort([("postnum",-1)])
         loader=template.Loader(os.getcwd())
-        session=SessionManager(self)
-        print str(session.keys())
         try:
-            if session['loggedin']:
-                source=loader.load("indexlogged.html").generate(stories=stories,session=session)
-                self.write(source)
+            session=self.session.get('user')
+            source=loader.load("indexlogged.html").generate(stories=stories,session=session)
+            self.write(source)
 
         except Exception as e:
             print e
@@ -72,29 +70,14 @@ class LogoutHandler(tornado.web.RequestHandler):
         session=SessionManager(self)
         session.delete(self)
         self.redirect("http://lyket.com/")
-class LoginHandler(tornado.web.RequestHandler):
+class LoginHandler(tornado.web.RequestHandler, SessionMixin):
     def post(self):
         db = pymongo.MongoClient()
         username=self.get_argument('username')
         password=self.get_argument('password')
         user=db.lyket.users.find_one({'username':username , 'password':password})
-        session=SessionManager(self)
-
-        try:
-            print str(session['user']['username'])
-        except:
-            pass
-
-        print "got here"
-        if user:
-            
-            session['user']=user
-            session['loggedin']=True
-            print "fuck"
-            self.redirect("http://lyket.com/")
-
-        else:
-            self.redirect("http://lyket.com/")
+        self.session.set('user',user)
+        self.redirect("http://lyket.com/")
 class SignUpHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("signup.html")
