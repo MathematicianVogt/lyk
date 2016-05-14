@@ -13,6 +13,7 @@ class LyketHome(tornado.web.RequestHandler):
         db = pymongo.MongoClient()
         one=db.lyket.articles.find_one()
         print one 
+        res={}
         res['title']="dongs"
         res['sum']="sumarrydomgs"
         loader=template.Loader(os.getcwd())
