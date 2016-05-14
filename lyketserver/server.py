@@ -116,7 +116,10 @@ def main():
             tornado.web.url(r'/logout', LogoutHandler),
             tornado.web.url(r'/(?P<uuid>.+)', ArticlePage)
 
-        ],cookie_secret='4cd86ac2-dba9-4a5c-992a-fc60e5847149',**{
+        ],cookie_secret='4cd86ac2-dba9-4a5c-992a-fc60e5847149', settings = {
+                    'static_path': 'static'
+            }
+,**{
     'pycket': {
         'engine': 'redis',
         'storage': {
