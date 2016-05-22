@@ -38,7 +38,7 @@ class ArticlePage(tornado.web.RequestHandler):
             article=self.settings['db'].lyket.articles.find_one({'_id':uuid})
 
             loader=template.Loader(os.getcwd())
-            source=loader.load("article.html").generate(title=article['title'],sum=article['sum'],url=article['url'])
+            source=loader.load("static/article.html").generate(title=article['title'],sum=article['sum'],url=article['url'])
             self.write(source)
         except Exception as e:
             print e
@@ -77,7 +77,7 @@ class LoginHandler(tornado.web.RequestHandler):
         self.redirect("http://lyket.com/")
 class SignUpHandler(tornado.web.RequestHandler):
     def get(self):
-        self.render("signup.html")
+        self.render("static/signup.html")
 
 
 
