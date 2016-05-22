@@ -35,7 +35,7 @@ class ArticlePage(tornado.web.RequestHandler):
         try:
         
             size=self.settings['db'].lyket.articles.count()
-            article=db.lyket.articles.find_one({'_id':uuid})
+            article=self.settings['db'].lyket.articles.find_one({'_id':uuid})
 
             loader=template.Loader(os.getcwd())
             source=loader.load("article.html").generate(title=article['title'],sum=article['sum'],url=article['url'])
