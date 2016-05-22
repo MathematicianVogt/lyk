@@ -2,7 +2,6 @@ import tornado.ioloop
 import tornado.web
 import tornado.template as template
 import os
-import motor
 import bson
 import pymongo
 import random
@@ -18,14 +17,14 @@ class LyketHome(tornado.web.RequestHandler):
     
     def get(self):
         
-        db = pymongo.MongoClient()
-        size=db.lyket.articles.count()
+        
+        size=self.settings['db'].lyket.articles.count()
         post_amount=30
         real_amount=size-post_amount
-        stories=db.lyket.articles.find({"postnum" : {"$gt" : real_amount}}).sort([("postnum",-1)])
+        stories=self.settings['db'].lyket.articles.find({"postnum" : {"$gt" : real_amount}}).sort([("postnum",-1)])
         loader=template.Loader(os.getcwd())
         dic={'stories':stories}
-        source=loader.load("index.html").generate(stories=stories)
+        source=loader.load("static/index.html").generate(stories=stories)
         self.write(source)
        # self.render(os.getcwd() + "/index.html",**dic)
 
@@ -34,8 +33,8 @@ class LyketHome(tornado.web.RequestHandler):
 class ArticlePage(tornado.web.RequestHandler):
     def get(self,uuid):
         try:
-            db = pymongo.MongoClient()
-            size=db.lyket.articles.count()
+        
+            size=self.settings['db'].lyket.articles.count()
             article=db.lyket.articles.find_one({'_id':uuid})
 
             loader=template.Loader(os.getcwd())
@@ -43,11 +42,11 @@ class ArticlePage(tornado.web.RequestHandler):
             self.write(source)
         except:
             loader=template.Loader(os.getcwd())
-            source=loader.load("article_not_found.html").generate()
+            source=loader.load("static/article_not_found.html").generate()
             self.write(source)
 class AccountCreationHandler(tornado.web.RequestHandler):
     def post(self):
-        db = pymongo.MongoClient()
+        
         email = self.get_argument('email', '')
         username=self.get_argument('username', '')
         password=self.get_argument('password', '')
@@ -60,7 +59,7 @@ class AccountCreationHandler(tornado.web.RequestHandler):
         user_dic['birth']=datetime.datetime.now()
         user_dic['bio']=""
         user_dic['comments']=[]
-        db.lyket.users.insert(user_dic)
+        self.settings['db'].lyket.users.insert(user_dic)
         self.redirect("http://lyket.com/")
 
 class LogoutHandler(tornado.web.RequestHandler):
@@ -70,10 +69,9 @@ class LogoutHandler(tornado.web.RequestHandler):
         self.redirect("http://lyket.com/")
 class LoginHandler(tornado.web.RequestHandler):
     def post(self):
-        db = pymongo.MongoClient()
         username=self.get_argument('username')
         password=self.get_argument('password')
-        user=db.lyket.users.find_one({'username':username , 'password':password})
+        user=self.settings['db'].lyket.users.find_one({'username':username , 'password':password})
         self.session.set('user',user)
         self.redirect("http://lyket.com/")
 class SignUpHandler(tornado.web.RequestHandler):
@@ -88,11 +86,7 @@ class SignUpHandler(tornado.web.RequestHandler):
 
 def main():
 
-    database = motor.motor_tornado.MotorClient()
-    database.lyket.articles.create_index(
-        'creationtime',
-        backgreat=True
-    )
+
 
     '''
     app = tornado.web.Application([
@@ -113,12 +107,15 @@ def main():
             tornado.web.url(r'/signup', SignUpHandler),
             tornado.web.url(r'/login', LoginHandler) ,
             tornado.web.url(r'/makeacc', AccountCreationHandler),
-            tornado.web.url(r'/logout', LogoutHandler),
+            tornado.web.url(r'/logout', LogoutHandler), 
+            tornado.web.url(r'/static/(.*)', tornado.web.StaticFileHandler, {'path': os.path.join(os.getcwd(), 'static')}),
             tornado.web.url(r'/(?P<uuid>.+)', ArticlePage)
 
         ],cookie_secret='4cd86ac2-dba9-4a5c-992a-fc60e5847149', settings = {
                     'static_url_prefix':'/static'
-            }
+            },
+            db=pymongo.MongoClient(),
+            debug=True
 ,**{
     'pycket': {
         'engine': 'redis',
