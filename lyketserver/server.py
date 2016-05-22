@@ -40,7 +40,8 @@ class ArticlePage(tornado.web.RequestHandler):
             loader=template.Loader(os.getcwd())
             source=loader.load("article.html").generate(title=article['title'],sum=article['sum'],url=article['url'])
             self.write(source)
-        except:
+        except Exception as e:
+            print e
             loader=template.Loader(os.getcwd())
             source=loader.load("static/article_not_found.html").generate()
             self.write(source)
