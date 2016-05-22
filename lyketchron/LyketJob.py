@@ -40,6 +40,7 @@ class LyketJob:
 				for submission in submissions:
 					story_url=submission.url.encode('ascii', 'ignore')
 					if( not self.db.in_set({'url':story_url})):
+						print str(story_url)
 						current_article = NewsArticle(story_url)
 						
 
