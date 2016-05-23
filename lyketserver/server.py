@@ -123,8 +123,8 @@ def main():
             tornado.web.url(r'/login', LoginHandler) ,
             tornado.web.url(r'/makeacc', AccountCreationHandler),
             tornado.web.url(r'/logout', LogoutHandler), 
-            tornado.web.url(r'/page/(?P<number>.+)', MainPageHandler),
             tornado.web.url(r'/static/(.*)', tornado.web.StaticFileHandler, {'path': os.path.join(os.getcwd(), 'static')}),
+            tornado.web.url(r'/page/(?P<number>.+)', MainPageHandler),
             tornado.web.url(r'/(?P<uuid>.+)', ArticlePage)
 
         ],cookie_secret='4cd86ac2-dba9-4a5c-992a-fc60e5847149', settings = {
