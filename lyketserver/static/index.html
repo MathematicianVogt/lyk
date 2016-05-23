@@ -95,27 +95,24 @@
         <div class="row text-center">
             <div class="col-lg-12">
                 <ul class="pagination">
+                    
+                {%if not number< 1   %}
                     <li>
-                        <a href="#">&laquo;</a>
+                        <a href="http://lyket.com/page/{{number-1}}">&laquo;</a>
                     </li>
+                {%end%}
+                {% for i in range(number,number+5%}
                     <li class="active">
-                        <a href="#">1</a>
+                        <a href="http://lyket.com/page/{{i}}">i</a>
                     </li>
-                    <li>
-                        <a href="#">2</a>
+                {%end%}
+                
+                   
+                   {%if not number >9%}
+                   <li>
+                        <a href="http://lyket.com/page/{{number+1}}">&raquo;</a>
                     </li>
-                    <li>
-                        <a href="#">3</a>
-                    </li>
-                    <li>
-                        <a href="#">4</a>
-                    </li>
-                    <li>
-                        <a href="#">5</a>
-                    </li>
-                    <li>
-                        <a href="#">&raquo;</a>
-                    </li>
+                    {%end%}
                 </ul>
             </div>
         </div>

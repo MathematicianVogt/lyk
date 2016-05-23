@@ -19,7 +19,7 @@ class LyketHome(tornado.web.RequestHandler):
         
         
         size=self.settings['db'].lyket.articles.count()
-        post_amount=30
+        post_amount=10
         real_amount=size-post_amount
         stories=self.settings['db'].lyket.articles.find({"postnum" : {"$gt" : real_amount}}).sort([("postnum",-1)])
         loader=template.Loader(os.getcwd())
@@ -79,6 +79,19 @@ class SignUpHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("static/signup.html")
 
+class MainPageHandler(tornado.web.RequestHandler):
+    def get(self,number):
+        size=self.settings['db'].lyket.articles.count()
+        post_amount=10
+        lower_bound=size -(number)*post_amount
+        upper_bound=size - (number-1)*post_amount
+        stories=self.settings['db'].lyket.articles.find({"postnum" : {"$gt" : lower_bound, "$lt" : upper_bound}}).sort([("postnum",-1)])
+        loader=template.Loader(os.getcwd())
+        dic={'stories':stories}
+        source=loader.load("static/index.html").generate(stories=stories,number=number)
+        self.write(source)
+
+
 
 
 
@@ -109,6 +122,7 @@ def main():
             tornado.web.url(r'/login', LoginHandler) ,
             tornado.web.url(r'/makeacc', AccountCreationHandler),
             tornado.web.url(r'/logout', LogoutHandler), 
+            tornado.web.url(r'/page/(?P<number>.+)', MainPageHandler),
             tornado.web.url(r'/static/(.*)', tornado.web.StaticFileHandler, {'path': os.path.join(os.getcwd(), 'static')}),
             tornado.web.url(r'/(?P<uuid>.+)', ArticlePage)
 
