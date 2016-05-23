@@ -8,6 +8,7 @@ import random
 import uuid
 import datetime
 from pycket.session import SessionManager
+import math
 
 
 class LyketHome(tornado.web.RequestHandler):
@@ -83,13 +84,15 @@ class MainPageHandler(tornado.web.RequestHandler):
     def get(self,number):
         size=self.settings['db'].lyket.articles.count()
         post_amount=10
+        maxpages=size/float(post_amount)
+        maxpages=math.ceil(maxpages)
         number=int(number)
         lower_bound=size -(number)*post_amount
         upper_bound=size - (number-1)*post_amount
         stories=self.settings['db'].lyket.articles.find({"postnum" : {"$gt" : lower_bound, "$lt" : upper_bound}}).sort([("postnum",-1)])
         loader=template.Loader(os.getcwd())
         dic={'stories':stories}
-        source=loader.load("static/page/index.html").generate(stories=stories,number=number)
+        source=loader.load("static/page/index.html").generate(stories=stories,number=number,maxpages=maxpages)
         self.write(source)
 
 
