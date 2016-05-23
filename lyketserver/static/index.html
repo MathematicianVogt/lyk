@@ -96,7 +96,7 @@
             <div class="col-lg-12">
                 <ul class="pagination">
                     
-                {%if not number< 1   %}
+                {%if not number<=1   %}
                     <li>
                         <a href="http://lyket.com/page/{{number-1}}">&laquo;</a>
                     </li>
@@ -108,7 +108,7 @@
                 {%end%}
                 
                    
-                   {%if not number >9%}
+                   {%if not number >=9%}
                    <li>
                         <a href="http://lyket.com/page/{{number+1}}">&raquo;</a>
                     </li>
