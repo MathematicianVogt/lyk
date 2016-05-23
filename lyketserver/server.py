@@ -151,7 +151,7 @@ def main():
 
 #tornado.web.url(r'/static/(.*)', tornado.web.StaticFileHandler, {'path': os.path.join(os.getcwd(), 'static')}),
 
-
+    print pie
     app.listen(8000)
     tornado.ioloop.IOLoop.current().start()
 
