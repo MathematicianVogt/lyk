@@ -83,6 +83,7 @@ class MainPageHandler(tornado.web.RequestHandler):
     def get(self,number):
         size=self.settings['db'].lyket.articles.count()
         post_amount=10
+        number=int(number)
         lower_bound=size -(number)*post_amount
         upper_bound=size - (number-1)*post_amount
         stories=self.settings['db'].lyket.articles.find({"postnum" : {"$gt" : lower_bound, "$lt" : upper_bound}}).sort([("postnum",-1)])
