@@ -89,7 +89,7 @@ class MainPageHandler(tornado.web.RequestHandler):
         stories=self.settings['db'].lyket.articles.find({"postnum" : {"$gt" : lower_bound, "$lt" : upper_bound}}).sort([("postnum",-1)])
         loader=template.Loader(os.getcwd())
         dic={'stories':stories}
-        source=loader.load("static/index.html").generate(stories=stories,number=number)
+        source=loader.load("static/page/index.html").generate(stories=stories,number=number)
         self.write(source)
 
 
