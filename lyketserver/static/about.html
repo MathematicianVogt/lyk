@@ -45,10 +45,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="http://lyket.com/about">About</a>
+                        <a href="#">About</a>
                     </li>
                     <li>
-                        <a href="http://lyket.com/contact">Contact</a>
+                        <a href="#">Contact</a>
                     </li>
                 </ul>
             </div>
@@ -59,78 +59,7 @@
 
     <!-- Page Content -->
     <div class="container">
-
-        <!-- Page Heading -->
-        <div class="row">
-            <div class="col-lg-12">
-                <h1 class="page-header">Lyket
-                    <small>Summzerizing News</small>
-                </h1>
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <!-- Project One -->
-        {% for story in stories %}
-        <!-- Project One -->
-        <div class="row">
-            <div class="col-md-7">
-                <a href="http://lyket.com/{{story['_id']}}">
-                    <img class="img-responsive" src="{{story['thumb']}}" alt="" height="100" width="700">
-                </a>
-            </div>
-            <div class="col-md-5">
-                <h3>{{story['title']}}</h3>
-                <h4>{{story['publisher']}}</h4>
-                <p>{{story['sum']}}</p>
-                <a class="btn btn-primary" href="http://lyket.com/{{story['_id']}}">Read More<span class="glyphicon glyphicon-chevron-right"></span></a>
-            </div>
-        </div>
-
-        <hr>
-        {%end %}
-
-
-        <!-- Pagination -->
-        <div class="row text-center">
-            <div class="col-lg-12">
-                <ul class="pagination">
-                    
-                {%if not number<=1   %}
-                    <li>
-                        <a href="http://lyket.com/page/{{number-1}}">&laquo;</a>
-                    </li>
-                {%end%}
-                {% for i in range(number,number+5)%}
-                    {%if i<=10%}
-                    <li class="active">
-                        <a href="http://lyket.com/page/{{i}}">{{i}}</a>
-                    </li>
-                    {%end%}
-                {%end%}
-                
-                   
-                   {%if not number >=9%}
-                   <li>
-                        <a href="http://lyket.com/page/{{number+1}}">&raquo;</a>
-                    </li>
-                    {%end%}
-                </ul>
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <hr>
-
-        <!-- Footer -->
-        <footer>
-            <div class="row">
-                <div class="col-lg-12">
-                    <p>Copyright &copy; Lyket 2016</p>
-                </div>
-            </div>
-            <!-- /.row -->
-        </footer>
+    <img src ="http://i.imgur.com/uYdwsT3.gif">
 
     </div>
     <!-- /.container -->

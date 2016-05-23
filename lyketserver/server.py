@@ -80,6 +80,13 @@ class SignUpHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("static/signup.html")
 
+class AboutHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render("static/about.html")
+class ContactHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.render("static/contact.html")
+
 class MainPageHandler(tornado.web.RequestHandler):
     def get(self,number):
         size=self.settings['db'].lyket.articles.count()
@@ -122,6 +129,8 @@ def main():
     
     app = tornado.web.Application([
             tornado.web.url(r'/', LyketHome) ,
+            tornado.web.url(r'/about', AboutHandler),
+            tornado.web.url(r'/contact', ContactHandler),
             tornado.web.url(r'/signup', SignUpHandler),
             tornado.web.url(r'/login', LoginHandler) ,
             tornado.web.url(r'/makeacc', AccountCreationHandler),
